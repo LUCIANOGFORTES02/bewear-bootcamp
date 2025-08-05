@@ -1,7 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -22,6 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 
 const formSchema = z
   .object({
@@ -43,6 +46,8 @@ const formSchema = z
 type FormSchema = z.infer<typeof formSchema>;
 
 const SingUpForm = () => {
+  const router = useRouter();
+
   //1. Define your form
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -53,10 +58,28 @@ const SingUpForm = () => {
       passwordConfirmation: "",
     },
   });
+
   // 2. Define a submit handler.
   async function onSubmit(values: FormSchema) {
-    console.log("Formulário validado e enviado");
-    console.log(values);
+    const { data, error } = await authClient.signUp.email({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (error) => {
+          if (error.error.code === "USER_ALREADY_EXISTS") {
+            toast.error("E-mail já cadastrado.");
+            return form.setError("email", {
+              message: "E-mail já cadastrado.",
+            });
+          }
+          toast.error(error.error.message);
+        },
+      },
+    });
   }
 
   return (
