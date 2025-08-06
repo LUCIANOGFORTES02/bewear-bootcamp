@@ -5,6 +5,7 @@ import { db } from "@/db"; // your drizzle instance
 
 import * as schema from "../db/schema";
 
+//Criando uma instância do Better Auth, uma api objeto
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
