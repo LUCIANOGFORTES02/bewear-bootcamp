@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import CategorySelector from "@/components/commom/category-selector";
 import Header from "@/components/commom/header";
 import ProductList from "@/components/commom/product-list";
 import { db } from "@/db";
@@ -29,6 +30,10 @@ export default async function Home() {
         </div>
 
         <ProductList products={products} title="Mais vendidos" />
+
+        <div className="px-5">
+          <CategorySelector categories={categories} />
+        </div>
 
         <div className="px-5">
           <Image
