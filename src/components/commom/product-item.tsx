@@ -19,10 +19,14 @@ export default function ProductItem({
 }: ProductItemProps) {
   const firstVariant = product.variants[0]; //Sempre mostrar a primeira variantes
   return (
-    <Link href="/" className="flex flex-col gap-4">
+    <Link
+      href={`/product-variant/${firstVariant.slug}`}
+      className="flex flex-col gap-4"
+    >
       <Image
         src={firstVariant.imageUrl}
         alt={firstVariant.name}
+        sizes="100vw"
         height={0}
         width={0}
         className="h-auto w-full rounded-3xl"
