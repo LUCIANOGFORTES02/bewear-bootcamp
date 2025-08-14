@@ -1,15 +1,23 @@
 "use client";
+
 import { MinusIcon, PlusIcon } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
-export default function QuantitySelector() {
+import AddToCartButton from "./add-to-cart-button";
+
+interface ProductActionsProps {
+  productVariantId: string;
+}
+
+const ProductActions = ({ productVariantId }: ProductActionsProps) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrement = () => {
     setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
   };
+
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1);
   };
@@ -30,6 +38,17 @@ export default function QuantitySelector() {
           </div>
         </div>
       </div>
+      <div className="flex flex-col space-y-4 px-5">
+        <AddToCartButton
+          productVariantId={productVariantId}
+          quantity={quantity}
+        />
+        <Button className="rounded-full" size="lg">
+          Comprar agora
+        </Button>
+      </div>
     </>
   );
-}
+};
+
+export default ProductActions;
