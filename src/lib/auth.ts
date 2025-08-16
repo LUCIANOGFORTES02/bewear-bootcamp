@@ -7,6 +7,7 @@ import * as schema from "../db/schema";
 
 //Criando uma instância do Better Auth, uma api objeto
 export const auth = betterAuth({
+  //Habilitando a autenticação de e-mail e senha
   emailAndPassword: {
     enabled: true,
   },
@@ -16,7 +17,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
-
+  //Adapter permite conectar o Better Auth ao banco de dados
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite"
     schema,

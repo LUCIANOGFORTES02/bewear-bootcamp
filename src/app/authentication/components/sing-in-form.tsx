@@ -26,19 +26,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
+//Definição do Schema de validação com Zod
 const formSchema = z.object({
   email: z.email("E-mail inválido"),
   password: z.string("Senha inválida").min(8, "Senha inválida"),
 });
 
+//Tipo Typescript inferido a partir do schema
 type FormSchema = z.infer<typeof formSchema>;
 
 const SingInForm = () => {
   const router = useRouter();
 
-  //1. Define your form
+  //Configuração do formulário
   const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema), //conecta validação do zod
     defaultValues: {
       email: "",
       password: "",
@@ -46,7 +48,7 @@ const SingInForm = () => {
   });
   // 2. Define a submit handler.
   async function onSubmit(values: FormSchema) {
-    const { data, error } = await authClient.signIn.email({
+    await authClient.signIn.email({
       email: values.email,
       password: values.password,
       fetchOptions: {
@@ -76,7 +78,7 @@ const SingInForm = () => {
   }
 
   const handleSignInWithGoogle = async () => {
-    const data = await authClient.signIn.social({
+    await authClient.signIn.social({
       provider: "google",
     });
   };
@@ -137,6 +139,7 @@ const SingInForm = () => {
                 onClick={handleSignInWithGoogle}
                 type="button"
               >
+                {/* ícone do google */}
                 <svg viewBox="0 0 24 24" className="h-4 w-4">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

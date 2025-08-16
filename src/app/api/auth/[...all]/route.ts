@@ -2,4 +2,4 @@ import { toNextJsHandler } from "better-auth/next-js";
 
 import { auth } from "@/lib/auth"; // path to your auth file
 
-export const { POST, GET } = toNextJsHandler(auth);
+export const { POST, GET } = toNextJsHandler(auth); //Transforma o auth em rotas de API

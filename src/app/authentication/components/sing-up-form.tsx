@@ -61,7 +61,7 @@ const SingUpForm = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: FormSchema) {
-    const { data, error } = await authClient.signUp.email({
+    await authClient.signUp.email({
       name: values.name,
       email: values.email,
       password: values.password,
@@ -92,7 +92,7 @@ const SingUpForm = () => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <CardContent className="grid gap-6">
+            <CardContent className="grid w-full gap-6">
               <FormField
                 control={form.control}
                 name="name"
@@ -152,7 +152,7 @@ const SingUpForm = () => {
                     <FormLabel>Confirmar senha</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Digite sua senha"
+                        placeholder="Confirmar senha"
                         {...field}
                         type="password"
                       />
