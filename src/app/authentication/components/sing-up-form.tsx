@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 
+//Regras de validação
 const formSchema = z
   .object({
     name: z.string("Nome inválido.").trim().min(1, "Nome é obrigatório."),
@@ -48,7 +49,7 @@ type FormSchema = z.infer<typeof formSchema>;
 const SingUpForm = () => {
   const router = useRouter();
 
-  //1. Define your form
+  //Instancia o React Hook Form com o resolver do Zod e valores iniciais
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -89,7 +90,7 @@ const SingUpForm = () => {
           <CardTitle>Criar Conta</CardTitle>
           <CardDescription>Crie uma conta para continuar</CardDescription>
         </CardHeader>
-
+        {/*Provider do RHF: fornece 'form' para os campos filhos  */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <CardContent className="grid w-full gap-6">
@@ -100,11 +101,7 @@ const SingUpForm = () => {
                   <FormItem>
                     <FormLabel>Nome</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Digite seu nome"
-                        {...field}
-                        type="string"
-                      />
+                      <Input placeholder="Digite seu nome" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

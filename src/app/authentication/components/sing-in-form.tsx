@@ -101,11 +101,7 @@ const SingInForm = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Digite seu email"
-                        {...field}
-                        type="email"
-                      />
+                      <Input placeholder="Digite seu email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -118,11 +114,7 @@ const SingInForm = () => {
                   <FormItem>
                     <FormLabel>Senha</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Digite sua senha"
-                        {...field}
-                        type="password"
-                      />
+                      <Input placeholder="Digite sua senha" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
