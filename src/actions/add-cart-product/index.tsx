@@ -38,9 +38,11 @@ export const addProductToCart = async (data: AddProductToCartSchema) => {
     cartId = newCart.id;
   }
   const cartItem = await db.query.cartItemTable.findFirst({
-    where: (cartItem, { eq }) =>
-      eq(cartItem.cartId, cartId) &&
-      eq(cartItem.productVariantId, data.productVariantId),
+    where: (ci, { and, eq }) =>
+      and(
+        eq(ci.cartId, cartId),
+        eq(ci.productVariantId, data.productVariantId),
+      ),
   });
   if (cartItem) {
     await db
